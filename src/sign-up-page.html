@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Sign Up</title>
+</head>
+<body>
+    <form action="sign-up-page.php" method="post">
+        <h2>SIGN UP</h2>
+
+        <label>Username</label><br>
+        <input type="text" name="username" required><br><br>
+
+        <label>Email</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Create Password</label><br>
+        <input type="password" name="password" id="createPassword" required><br><br>
+        <label>Confirm Password</label><br>
+        <input type="password" name="password" id="confirmPassword" required><br><br>
+
+        <span id="passwordFeedback" style="color: red; display: none;">As senhas não coincidem.</span><br>
+
+        <input type="submit" name="submit" id="submit" value="SIGN UP">
+    </form>
+    <script>
+        const crePW = document.getElementById("createPassword");
+        const conPW = document.getElementById("confirmPassword");
+        const submitButton = document.getElementById("submit");
+        const feedback = document.getElementById("passwordFeedback");
+
+        submitButton.disabled = true;
+        function passwordVerification() {
+            return crePW.value !== "" && conPW.value !== "" && crePW.value === conPW.value;
+        }
+
+        function toggleSubmitButton() {
+            if (passwordVerification()) {
+                submitButton.disabled = false;
+                feedback.style.display = 'none';
+            } else {
+                submitButton.disabled = true;
+                if (crePW.value !== "" && conPW.value !== "" && crePW.value !== conPW.value) {
+                    feedback.style.display = 'inline';
+                } else {
+                    feedback.style.display = 'none';
+                }
+            }
+        }
+
+        crePW.addEventListener('input', toggleSubmitButton);
+        conPW.addEventListener('input', toggleSubmitButton);
+    </script>
+</body>
+</html>
