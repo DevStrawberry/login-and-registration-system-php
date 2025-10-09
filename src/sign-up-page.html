@@ -33,7 +33,6 @@
     submitButton.disabled = true;
 
     function passwordVerification() {
-        // Verifica se ambas têm valor E se os valores são idênticos
         return crePW.value !== "" && conPW.value !== "" && crePW.value === conPW.value;
     }
 
@@ -43,7 +42,6 @@
             feedback.style.display = 'none';
         } else {
             submitButton.disabled = true;
-            // Exibe feedback somente se ambas estiverem preenchidas, mas não forem iguais
             if (crePW.value !== "" && conPW.value !== "" && crePW.value !== conPW.value) {
                 feedback.style.display = 'inline';
             } else {
