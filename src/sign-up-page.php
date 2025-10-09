@@ -2,12 +2,19 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_username = $_POST["username"];
     $new_email = $_POST["email"];
-    $new_password = $_POST["password"];
+
+    $new_password_main = $_POST["create_password"];
+    $new_password_confirm = $_POST["confirm_password"];
+
+    if ($new_password_main !== $new_password_confirm) {
+        echo "Erro: As senhas enviadas não coincidem. O registro não foi processado.";
+        exit();
+    }
 
     $hostname = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "website_project";
+    $dbname = "basic-crm-system-db";
 
     $con = mysqli_connect($hostname, $username, $password, $dbname);
 
@@ -16,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($new_password_main, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
     $stmt = mysqli_prepare($con, $query);
